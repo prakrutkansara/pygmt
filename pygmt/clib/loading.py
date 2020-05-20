@@ -44,7 +44,10 @@ def load_libgmt(env=None):
     error = True
     for libname in libnames:
         try:
-            libgmt = ctypes.CDLL(os.path.join(libpath, libname))
+            if libpath:
+                libgmt = ctypes.CDLL(os.path.join(libpath, libname))
+            else:
+                libgmt = ctypes.CDLL(ctypes.util.find_library(libname))
             check_libgmt(libgmt)
             error = False
             break
