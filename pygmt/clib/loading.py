@@ -7,6 +7,7 @@ through the GMT_LIBRARY_PATH environment variable.
 import os
 import sys
 import ctypes
+from ctypes.util import find_library
 
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
@@ -47,7 +48,7 @@ def load_libgmt(env=None):
             if libpath:
                 libgmt = ctypes.CDLL(os.path.join(libpath, libname))
             else:
-                libgmt = ctypes.CDLL(ctypes.util.find_library(libname))
+                libgmt = ctypes.CDLL(find_library(libname))
             check_libgmt(libgmt)
             error = False
             break
